@@ -20,7 +20,7 @@ from sklearn.decomposition import *
 # distance, however I intend to create my own k-means or use other function
 # (www.spectralpython.net/class_func_ref.html?highlight=kmeans#spectral.kmeans)
 def build_codebook(data_train, number_of_words=300, clustering_method='kmeans',
-  distance_function='euclidean', random_seed = 0):
+  distance_function='euclidean', random_seed = 0, **_):
   if clustering_method == 'kmeans':
     KMeans = sklearn.cluster.KMeans(
         init = 'k-means++',
@@ -94,12 +94,13 @@ def coding_per_video(codebook_predictor, number_of_words, data_per_video, type_c
             shape=(data_per_video.shape[0], number_of_words),
             dtype=np.float)
   elif type_coding == 'soft':
+    return None
     # TODO: implement soft pooling
   return hist
 
 
 # Runs the cooding and pooling
-def coding_pooling_per_video (codebook_predictor, number_of_words, data_per_video, type_coding='hard', type_pooling='sum'):
+def coding_pooling_per_video (codebook_predictor, number_of_words, data_per_video, type_coding='hard', type_pooling='sum', **_):
   hist = coding_per_video (codebook_predictor = codebook_predictor, number_of_words = number_of_words, data_per_video = data_per_video, type_coding=type_coding);
   return pooling_per_video (code_histograms = hist, type_pooling = type_pooling);
 
