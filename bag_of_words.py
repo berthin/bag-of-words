@@ -88,7 +88,7 @@ def call_predictor(predictor, arguments):
 def coding_per_video(codebook_predictor, number_of_words, data_per_video, type_coding='hard'):
   hist = None
   if type_coding == 'hard':
-    col = [(codebook_predictor.predict (data_point_features))[0] for data_point_features in data_per_video]
+    col = [(codebook_predictor.predict (data_point_features.reshape(1, -1)))[0] for data_point_features in data_per_video]
     hist = csc_matrix(
             (np.ones(data_per_video.shape[0]), (np.arange(data_per_video.shape[0]), col)),
             shape=(data_per_video.shape[0], number_of_words),
